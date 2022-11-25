@@ -19,7 +19,9 @@ suspend fun loadContributorsProgress(
             .bodyList()
 
         allUsers = (allUsers + users).aggregate()
-        //There are 82 repos at the time writing, after each repo reach lastIndex, updateResults will run with data allUsers at that exact time
+        //There are 82 repos at the time writing, after each repo loading finished,
+        //updateResults will run with data allUsers at that exact time
+        //if all repos are finished(from index reached 81) then it will do last updateResults
         updateResults(allUsers, index == repos.lastIndex)
     }
 }
