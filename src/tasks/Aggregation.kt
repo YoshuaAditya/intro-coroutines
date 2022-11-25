@@ -15,4 +15,6 @@ TODO: Write aggregation code.
  You can use 'Navigate | Test' menu action (note the shortcut) to navigate to the test.
 */
 fun List<User>.aggregate(): List<User> =
-    this
+    groupBy {it.login} // Creates a Map<User.login,List<User>>, where duplicate elements removed by groupBy
+        .map { (login,group) -> User(login,group.sumOf { it.contributions }) } //returns a List<User>, where new element is User.login, sumOf(User.contributions)
+        .sortedByDescending { it.contributions }
